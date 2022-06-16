@@ -28,7 +28,7 @@ import com.example.instagram.LoginActivity;
 import com.example.instagram.MainActivity;
 import com.example.instagram.Post;
 import com.example.instagram.R;
-import com.parse.FindCallback;
+
 import com.parse.LogOutCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -39,17 +39,11 @@ import com.parse.SaveCallback;
 import java.io.File;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ComposeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ComposeFragment extends Fragment {
 
     public static final String TAG = "ComposeFragment";
     public static  final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 42;
 
-    Button btnLogout;
     EditText etDescription;
     Button btnTakePic;
     ImageView ivPhoto;
@@ -58,44 +52,8 @@ public class ComposeFragment extends Fragment {
     private File photoFile;
     public String photoFileName = "photo.jpg";
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
     public ComposeFragment() {
         // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ComposeFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ComposeFragment newInstance(String param1, String param2) {
-        ComposeFragment fragment = new ComposeFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -108,7 +66,7 @@ public class ComposeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        btnLogout = view.findViewById(R.id.btnLogout);
+
         etDescription = view.findViewById(R.id.etDescription);
         btnTakePic = view.findViewById(R.id.btnTakePic);
         ivPhoto = view.findViewById(R.id.ivPhoto);
@@ -116,36 +74,26 @@ public class ComposeFragment extends Fragment {
 
         ivPhoto.setRotation((float) 90.0);
 
-        btnTakePic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                launchCamera();
-            }
-        });
+        btnTakePic.setOnClickListener(v -> launchCamera());
 
-        //queryPosts();
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                logoutUser();
-            }
-        });
+        btnSubmit.setOnClickListener(v -> {
+            String description = etDescription.getText().toString();
 
-        btnSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String description = etDescription.getText().toString();
-                if (description.isEmpty()) {
-                    Toast.makeText(getContext(), "Description cannot be empty", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (photoFile == null || ivPhoto.getDrawable() == null) {
-                    Toast.makeText(getContext(), "There is no image!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                ParseUser currentUser = ParseUser.getCurrentUser();
-                savePost(description, currentUser, photoFile);
+            if (description.isEmpty()) {
+                Toast.makeText(getContext(), "Description cannot be empty", Toast.LENGTH_SHORT).show();
+                return;
             }
+
+            if (photoFile == null || ivPhoto.getDrawable() == null) {
+                Toast.makeText(getContext(), "There is no image!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            ParseUser currentUser = ParseUser.getCurrentUser();
+            savePost(description, currentUser, photoFile);
+
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            startActivity(intent);
         });
     }
 
@@ -167,7 +115,6 @@ public class ComposeFragment extends Fragment {
         if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()) {
             Log.d(TAG, "failed to create directory");
         }
-
         return new File(mediaStorageDir.getPath() + File.separator + fileName);
     }
 
@@ -186,58 +133,14 @@ public class ComposeFragment extends Fragment {
         post.setDescription(description);
         post.setImage(new ParseFile(photoFile));
         post.setUser(currentUser);
-        post.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                if (e != null) {
-                    Log.e(TAG, "Error while saving", e);
-                    Toast.makeText(getContext(), "Error while saving", Toast.LENGTH_SHORT).show();
-                }
-                Log.i(TAG, "Post save was successful!");
-                etDescription.setText("");
-                ivPhoto.setImageResource(0);
+        post.saveInBackground(e -> {
+            if (e != null) {
+                Log.e(TAG, "Error while saving", e);
+                Toast.makeText(getContext(), "Error while saving", Toast.LENGTH_SHORT).show();
             }
-        });
-    }
-
-    private void logoutUser() {
-        ParseUser.logOutInBackground(new LogOutCallback() {
-            @Override
-            public void done(ParseException e) {
-                if (e != null) {
-                    Log.e(TAG, "Issue with logout", e);
-                    Toast.makeText(getContext(), "Issue with logout!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                ParseUser currentUser = ParseUser.getCurrentUser();
-                currentUser = null;
-                goLoginScreen();
-                Toast.makeText(getContext(), "Success!", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void goLoginScreen() {
-        Intent i = new Intent(getContext(), LoginActivity.class);
-        startActivity(i);
-    }
-
-    public void queryPosts() {
-        ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
-        query.include(Post.KEY_USER);
-        query.findInBackground(new FindCallback<Post>() {
-            @Override
-            public void done(List<Post> objects, ParseException e) {
-                if (e != null) {
-                    Log.e(TAG, "Issue with getting posts", e);
-                    return;
-                }
-                for (Post post: objects) {
-                    Log.i(TAG, "Post: " + post.getDescription() + ", user: " + post.getUser().getUsername());
-                }
-                //posts.addAll(objects);
-                //adapter.notifyDataSetChanged();
-            }
+            Log.i(TAG, "Post save was successful!");
+            etDescription.setText("");
+            ivPhoto.setImageResource(0);
         });
     }
 }

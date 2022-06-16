@@ -8,12 +8,17 @@
         <entry key="app/src/main/res/layout/activity_feed.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.24256896972656253" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1001007080078125" />
+        <entry key="app/src/main/res/layout/activity_main2.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_navigation_bar.xml" value="0.17135416666666667" />
         <entry key="app/src/main/res/layout/activity_posts_adapter.xml" value="0.28072916666666664" />
         <entry key="app/src/main/res/layout/fragment_compose.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_posts.xml" value="0.18333333333333332" />
-        <entry key="app/src/main/res/layout/item_post.xml" value="0.3233367919921875" />
+        <entry key="app/src/main/res/layout/fragment_compose_activity2.xml" value="0.159375" />
+        <entry key="app/src/main/res/layout/fragment_posts.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/item_post.xml" value="0.1721239130547706" />
         <entry key="app/src/main/res/layout/launchscreen.xml" value="0.1" />
-        <entry key="app/src/main/res/menu/menu_bottom_navigation.xml" value="0.21237335205078123" />
+        <entry key="app/src/main/res/menu/menu_bottom_navigation.xml" value="0.1" />
+        <entry key="app/src/main/res/menu/menu_main.xml" value="0.1" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1105" />
         <entry key="app/src/main/res/xml/fileprovider.xml" value="0.1" />
       </map>

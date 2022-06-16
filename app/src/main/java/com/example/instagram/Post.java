@@ -1,25 +1,19 @@
 package com.example.instagram;
 
-import android.util.Log;
-import android.widget.Toast;
-
 import com.parse.ParseClassName;
-import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 @ParseClassName("Post")
 public class Post extends ParseObject {
 
-    public static final String KEY_DESCRIPTION = "description";
-    public static final String KEY_IMAGE = "image";
-    public static final String KEY_USER = "user";
+    public static final String KEY_DESCRIPTION = "Description";
+    public static final String KEY_IMAGE = "Image";
+    public static final String KEY_USER = "User";
+    public static final String KEY_CREATED_AT = "createdAt";
 
     public static final String TAG = "Post";
-
-    public Post() {}
 
     public String getDescription() {
         return getString(KEY_DESCRIPTION);
