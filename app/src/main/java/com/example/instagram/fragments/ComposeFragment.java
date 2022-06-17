@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.instagram.LoginActivity;
@@ -90,6 +91,10 @@ public class ComposeFragment extends Fragment {
             }
 
             ParseUser currentUser = ParseUser.getCurrentUser();
+
+            ProgressBar pb = (ProgressBar) view.findViewById(R.id.pbLoading);
+            pb.setVisibility(ProgressBar.VISIBLE);
+
             savePost(description, currentUser, photoFile);
 
             Intent intent = new Intent(getActivity(), MainActivity.class);

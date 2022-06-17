@@ -17,10 +17,8 @@ import android.view.ViewGroup;
 import com.example.instagram.Post;
 import com.example.instagram.PostsAdapter;
 import com.example.instagram.R;
-import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
-import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +32,7 @@ public class PostsFragment extends Fragment {
     protected List<Post> allPosts;
 
     private SwipeRefreshLayout swipeContainer;
+    //private EndlessRecyclerViewScrollListener scrollListener;
 
     public PostsFragment() {}
 

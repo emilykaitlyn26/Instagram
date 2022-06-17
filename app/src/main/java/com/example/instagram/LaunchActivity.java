@@ -18,7 +18,7 @@ public class LaunchActivity extends AppCompatActivity {
         Thread splashScreenStarter = new Thread(() ->{
             try {
                 int delay = 0;
-                while (delay < 1500) {
+                while (delay < 1000) {
                     Thread.sleep(150);
                     delay = delay + 100;
                 }
