@@ -64,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
                 Log.i(TAG, "onClick sign up button");
                 String username = etUsername.getText().toString();
                 String password = etPassword.getText().toString();
-                if (username.trim() != "" && password.trim() != "") {
+                if (!username.trim().equals("") && !password.trim().equals("")) {
                     signupUser(username, password);
                 } else {
                     Toast.makeText(LoginActivity.this, "Username and password cannot be empty", Toast.LENGTH_SHORT).show();
@@ -118,17 +118,14 @@ public class LoginActivity extends AppCompatActivity {
         }*/
         //user.setEmail(profileUrl);
         //user.put("ProfilePic", profileUrl);
-        user.signUpInBackground(new SignUpCallback() {
-            @Override
-            public void done(ParseException e) {
-                if (e == null) {
-                    Log.e(TAG, "Issue with sign up", e);
-                    Toast.makeText(LoginActivity.this, "Issue with sign up!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                goMainActivity();
-                Toast.makeText(LoginActivity.this, "Success!", Toast.LENGTH_SHORT).show();
+        user.signUpInBackground(e -> {
+            if (e == null) {
+                Log.e(TAG, "Issue with sign up", e);
+                Toast.makeText(this, "Issue with sign up!", Toast.LENGTH_SHORT).show();
+                return;
             }
+            goMainActivity();
+            Toast.makeText(LoginActivity.this, "Success!", Toast.LENGTH_SHORT).show();
         });
     }
 

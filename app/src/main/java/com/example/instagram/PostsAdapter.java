@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -45,16 +46,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         holder.bind(post);
     }
 
-    /*public void clear() {
-        posts.clear();
-        notifyDataSetChanged();
-    }*/
-
-    /*public void addAll(List<Post> list) {
-        posts.addAll(list);
-        notifyDataSetChanged();
-    }*/
-
     @Override
     public int getItemCount() {
         return posts.size();
@@ -67,6 +58,12 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         private TextView tvTimestamp;
         private ImageView imgUser;
         private TextView tvSmallUser;
+        private Button btnLike;
+        private Button btnComment;
+        private Button btnSend;
+        private Button btnSave;
+        private Boolean onLike = false;
+        private Boolean onSave = false;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -75,25 +72,50 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             tvPhotoDescription = itemView.findViewById(R.id.tvPhotoDescription);
             tvTimestamp = itemView.findViewById(R.id.tvTimestamp);
             tvSmallUser = itemView.findViewById(R.id.tvSmallUser);
-
+            btnLike = itemView.findViewById(R.id.btnLike);
+            btnComment = itemView.findViewById(R.id.btnComment);
+            btnSend = itemView.findViewById(R.id.btnSend);
+            btnSave = itemView.findViewById(R.id.btnSave);
             imgUser = itemView.findViewById(R.id.profileImage);
+
             imgUser.setBackgroundResource(R.drawable.profilepic);
-            /*ParseUser currentUser = ParseUser.getCurrentUser();
-            try {
-                ParseFile img = currentUser.getParseFile("profileImage");
-                if (img != null) {
-                    Bitmap bmp = BitmapFactory.decodeStream(img.getDataStream());
-                    imgUser.setImageBitmap(bmp);
+            btnLike.setBackgroundResource(R.drawable.ufi_heart);
+            btnComment.setBackgroundResource(R.drawable.ufi_comment);
+            btnSave.setBackgroundResource(R.drawable.ufi_save);
+            btnSend.setBackgroundResource(R.drawable.ufi_new_direct);
+
+            btnLike.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onLike == false) {
+                        onLike = true;
+                        btnLike.setBackgroundResource(R.drawable.ufi_heart_active);
+                    } else if (onLike == true) {
+                        onLike = false;
+                        btnLike.setBackgroundResource(R.drawable.ufi_heart);
+                    }
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }*/
+            });
+
+            btnSave.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onSave == false) {
+                        onSave = true;
+                        btnSave.setBackgroundResource(R.drawable.ufi_save_active);
+                    } else if (onSave == true) {
+                        onSave = false;
+                        btnSave.setBackgroundResource(R.drawable.ufi_save);
+                    }
+                }
+            });
+
             imgUser.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                     AppCompatActivity activity = (AppCompatActivity) v.getContext();
-                     Fragment fragment = new ProfileFragment();
-                     activity.getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).commit();
+                    AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                    Fragment fragment = new ProfileFragment();
+                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).commit();
                 }
             });
 
@@ -108,11 +130,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
 
             itemView.setOnClickListener(this::onClick);
         }
-
-        /*public void setImage(ParseFile parseFile) {
-            ParseUser currentUser = ParseUser.getCurrentUser();
-            currentUser.put(KEY_IMAGE, parseFile);
-        }*/
 
         public void bind(Post post) {
             tvPhotoDescription.setText(post.getDescription());

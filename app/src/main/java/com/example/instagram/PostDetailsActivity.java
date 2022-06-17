@@ -24,6 +24,7 @@ public class PostDetailsActivity extends AppCompatActivity {
     TextView tvDetailsCaption;
     TextView tvCreatedAt;
     ImageView ivProfileImage;
+    TextView tvSmallUserDetails;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,7 @@ public class PostDetailsActivity extends AppCompatActivity {
         tvDetailsUser = (TextView) findViewById(R.id.tvDetailsUser);
         ivDetailsPhoto = (ImageView) findViewById(R.id.ivDetailsPhoto);
         tvCreatedAt = (TextView) findViewById(R.id.tvCreatedAt);
+        tvSmallUserDetails = (TextView) findViewById(R.id.tvSmallUserDetails);
 
         Context context = ivDetailsPhoto.getContext();
 
@@ -41,6 +43,7 @@ public class PostDetailsActivity extends AppCompatActivity {
 
         tvDetailsUser.setText(post.getUser().getUsername());
         tvDetailsCaption.setText(post.getDescription());
+        tvSmallUserDetails.setText(post.getUser().getUsername());
 
         ivProfileImage = findViewById(R.id.ivProfileImage);
         ivProfileImage.setBackgroundResource(R.drawable.profilepic);

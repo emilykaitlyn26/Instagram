@@ -35,8 +35,8 @@
         android:id="@+id/tvPhotoDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="36dp"
         app:layout_constraintStart_toEndOf="@+id/tvSmallUser"
         app:layout_constraintTop_toBottomOf="@+id/ivPostPhoto"
         tools:text="This is the photo's caption." />
@@ -67,10 +67,45 @@
         android:id="@+id/tvSmallUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="36dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivPostPhoto"
         tools:text="emilyk" />
+
+    <Button
+        android:id="@+id/btnLike"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="-345dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivPostPhoto" />
+
+    <Button
+        android:id="@+id/btnComment"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintStart_toEndOf="@+id/btnLike"
+        app:layout_constraintTop_toBottomOf="@+id/ivPostPhoto" />
+
+    <Button
+        android:id="@+id/btnSend"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="3dp"
+        app:layout_constraintStart_toEndOf="@+id/btnComment"
+        app:layout_constraintTop_toBottomOf="@+id/ivPostPhoto" />
+
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivPostPhoto" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,9 +2,11 @@ package com.example.instagram;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.instagram.fragments.ProfileFragment;
 import com.parse.ParseFile;
 
 import java.util.Date;
@@ -54,13 +57,23 @@ public class GridRecyclerAdapter extends RecyclerView.Adapter<GridRecyclerAdapte
             super(itemView);
             ivProfileImages = itemView.findViewById(R.id.ivProfileImages);
 
-            //itemView.setOnClickListener(this::onClick);
+            itemView.setOnClickListener(this::onClick);
         }
 
         public void bind(Post post) {
             ParseFile image = post.getImageUrl();
             if (image != null) {
                 Glide.with(context).load(image.getUrl()).into(ivProfileImages);
+            }
+        }
+
+        public void onClick(View v) {
+            int position = getAdapterPosition();
+            if (position != RecyclerView.NO_POSITION) {
+                Post post = posts.get(position);
+                Intent intent = new Intent(context, PostDetailsActivity.class);
+                intent.putExtra("PARSE_OBJECT_EXTRA", post);
+                context.startActivity(intent);
             }
         }
     }
