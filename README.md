@@ -50,7 +50,7 @@ Please list two areas of the assignment you'd like to **discuss further with you
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+![instagramscreen](https://user-images.githubusercontent.com/92744208/174373822-bb6f7a58-a987-4a39-91c9-7be83d1d80b5.gif)
 
 
 ## Credits
