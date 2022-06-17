@@ -62,7 +62,9 @@ List an 3rd party libraries, icons, graphics, or other assets you used in your a
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+My biggest challenge during this project was the amount of bugs I encountered.
+The bug I spent the most time debugging was an error message related to fragments, but the issue was a small fix.
+With this project, I encountered a lot of bugs but besides that one, none took too long to fix and made me learn a lot and understand my code much better.
 
 ## License
 
